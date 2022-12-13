@@ -65,6 +65,8 @@ int main(int ac, char **av)
 	double	lat_up;
 	double	lat_bottom;
 	int		valid_result;
+	const int marker_height = 45;
+	const int marker_width = 25;
 
 	valid_result = valid_check(ac, av);
 	if (valid_result)
@@ -80,5 +82,9 @@ int main(int ac, char **av)
 		atoi(av[1]), atof(av[2]), atof(av[3]));
 	printf("tiles upper bound = %f, bottom bound = %f, left bound = %f, right bound = %f\n", lat_up, lat_bottom, lon_left, lon_right);
 	printf("\tOSM 'standard' style: https://tile.openstreetmap.org/%d/%d/%d.png\n", atoi(av[1]), x, y);
+	printf("\tmarker's position: horizontal offset = %f, vertical offset = %f",
+		fabs( lon_left - atof(av[2]) )/ fabs( lon_right - lon_left ) * 256 - marker_width/2,
+		fabs( lat_up - atof(av[3]) )  / fabs( lat_up - lat_bottom ) * 256 - marker_height
+	);
 	return (0);
 }
